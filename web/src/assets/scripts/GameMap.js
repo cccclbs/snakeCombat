@@ -100,52 +100,52 @@ export class GameMap extends AcGameObject{
         this.ctx.canvas.focus();
 
         // const [snake0,snake1] = this.snakes;
-        const snake0 = this.snakes[0];
-        const snake1 = this.snakes[1];
+        // const snake0 = this.snakes[0];
+        // const snake1 = this.snakes[1];
         
         this.ctx.canvas.addEventListener("keydown",e=>{
+            let d = -1;
             if(e.key==='w'){
-                // console.log(snake0);
-                console.log("w");
-                snake0.set_direction(0);
-                console.log(snake0);
+                d = 0;
             }
             else if (e.key ==='d'){
-                console.log("d");
-                snake0.set_direction(1);
-                console.log(snake0);
+                d = 1;
             } 
             else if (e.key ==='s'){
-                console.log("s");
-               snake0.set_direction(2);
-               console.log(snake0); 
+                d = 2; 
             } 
             else if (e.key ==='a'){
-                console.log("a");
-                snake0.set_direction(3);
-                console.log(snake0);
-            } 
-            else if (e.key ==='ArrowUp'){
-                // console.log(snake1);
-                console.log("up");
-                snake1.set_direction(0);
-                console.log(snake1);
-            } 
-            else if (e.key ==='ArrowRight'){
-                console.log("right");
-                snake1.set_direction(1);
-                console.log(snake1);
-            } 
-            else if (e.key ==='ArrowDown'){
-                console.log("down");
-                snake1.set_direction(2);
-                console.log(snake1);
-            } 
-            else if (e.key ==='ArrowLeft'){
-                console.log("left");
-                snake1.set_direction(3);
-                console.log(snake1);
-            } 
+                d = 3;
+            }
+            
+            if (d >= 0) {
+                this.store.state.pk.socket.send(JSON.stringify({
+                    event: "move",
+                    direction: d,
+                }));
+            }
+
+            // else if (e.key ==='ArrowUp'){
+            //     // console.log(snake1);
+            //     console.log("up");
+            //     snake1.set_direction(0);
+            //     console.log(snake1);
+            // } 
+            // else if (e.key ==='ArrowRight'){
+            //     console.log("right");
+            //     snake1.set_direction(1);
+            //     console.log(snake1);
+            // } 
+            // else if (e.key ==='ArrowDown'){
+            //     console.log("down");
+            //     snake1.set_direction(2);
+            //     console.log(snake1);
+            // } 
+            // else if (e.key ==='ArrowLeft'){
+            //     console.log("left");
+            //     snake1.set_direction(3);
+            //     console.log(snake1);
+            // } 
 
         })
     }
